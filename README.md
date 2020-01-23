@@ -2,4 +2,4 @@
 
 An ultrasound problem to detect the location of stone in the intestine of a dog based on FFT/Wavelet analysis. </br>
 
-![Test](Save-The-Dog/fig1.png)
+![Test](fig1)
