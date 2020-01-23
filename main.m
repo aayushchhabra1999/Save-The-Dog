@@ -89,3 +89,47 @@ sgtitle('Zooming at isovalue = 0.6 with different cross-sections', 'FontSize', 1
     'FontWeight', 'bold');
 print(fig, '-dpng', 'fig2')
 
+%% Filter Design
+
+% After averaging out most of the noise and gradually increasing 
+% the isovalue, we can see that the dominant frequency occurs at
+% Kx = 2, Ky = -1, Kz = 0
+
+% Now that we know the dominant frequency in the data, we will 
+% build a filter and extra act the location of the stone.
+
+% For our purposes, let's use a gaussian filter.
+fig = figure(3);
+mu = [2 -1 0];
+% width of the filter is a hyperparameter:
+sigma = [0.001 0 0; 0 0.001 0; 0 0 0.001];
+filter = mvnpdf([Kx(:) Ky(:) Kz(:)],mu,sigma);
+filter = reshape(filter,length(Kz),length(Ky),length(Kx));
+isosurface(Kx,Ky,Kz,filter)
+axis([0 4 -3 2 -2 2]), grid on, drawnow
+xlabel('Kx')
+ylabel('Ky')
+zlabel('Kz')
+view(30,30)
+title('Filter Design', 'FontSize', 12,...
+    'FontWeight', 'bold');
+print(fig, '-dpng', 'fig3')
+
+%% Apply filter to average
+
+% We will now apply this filter to our avg data in the freq domain.
+fig = figure(4);
+U_noisy_fft_avg_filter = U_noisy_fft_avg
+
+%% Apply filter at each time
+
+% We will now apply our filter to each time slice. This will help us
+% to find the path of the particle.
+
+
+
+
+
+
+
+
